@@ -43,7 +43,6 @@
 
 #include "graph.h"
 #include <QtQml/QQmlContext>
-#include <QDir>
 
 int main(int argc, char *argv[])
 {
@@ -56,18 +55,8 @@ int main(int argc, char *argv[])
     view.resize(800, 400);
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     //view.setSource(QUrl("qrc:///scenegraph/graph/main.qml"));
-    view.setSource(QUrl("qrc:///main.qml"));
-
-    //QDir qd;
-    //QString url1;
-    //url1 = "c:\\users\\chuba\\bitwhat\\graph\\main.qml";
-    //url1 = QCoreApplication::applicationDirPath()+"/main.qml"  ;
-    //url1 = url1.replace("\", "\\");
-    //qWarning() << url1;
-    //url1 = qd.homePath()+"/bitwhat/graph/main.qml";
-    //url1 = url1.replace(QString("/"), QString("\\"));
-    //view.setSource( QUrl(url1));
-
+    view.setSource(QUrl("qrc:///main.qml"));//mycode
+    view.title().clear();
     view.show();
     return a.exec();
 }

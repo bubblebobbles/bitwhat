@@ -57,8 +57,10 @@ class LineShader : public QSGSimpleMaterialShader<LineMaterial>
 
 public:
     LineShader() : id_color(-1), id_spread(-1), id_size(-1) {
-        setShaderSourceFile(QOpenGLShader::Vertex, ":/scenegraph/graph/shaders/line.vsh");
-        setShaderSourceFile(QOpenGLShader::Fragment, ":/scenegraph/graph/shaders/line.fsh");
+      //  setShaderSourceFile(QOpenGLShader::Vertex, ":/scenegraph/graph/shaders/line.vsh");
+      //  setShaderSourceFile(QOpenGLShader::Fragment, ":/scenegraph/graph/shaders/line.fsh");
+        setShaderSourceFile(QOpenGLShader::Vertex, ":/shaders/line.vsh");//mycode
+        setShaderSourceFile(QOpenGLShader::Fragment, ":/shaders/line.fsh");//mycode
     }
 
     QList<QByteArray> attributes() const {  return QList<QByteArray>() << "pos" << "t"; }

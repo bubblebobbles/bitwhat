@@ -55,8 +55,6 @@
 #include <QSsl>
 #include <QSslSocket>
 
-
-
 Graph::Graph()
     : m_samplesChanged(false)
     , m_geometryChanged(false)
@@ -73,7 +71,6 @@ void Graph::appendSample(qreal value)
     update();
 }
 
-//mycode
 QString Graph::getFromWeb(QString url)//mycode
 {
 
@@ -85,56 +82,37 @@ QString Graph::getFromWeb(QString url)//mycode
 
     event.exec();
 
-    return response->readAll(); // Source should be stored here
+    return response->readAll();
 }
 
-//mycode
-qreal firstValR=0.00;//mycode
-QString Graph::readLast(QString jsonstring)//mycode
+qreal maxR=0.00;//mycode
+qreal minR=0.00;//mycode
+qreal rangeR=0.00;//mycode
+QString Graph::readLast(QString val)//mycode
    {
-      QString val;
-      //QFile file;
-      //file.setFileName("test.json");
-      //file.open(QIODevice::ReadOnly | QIODevice::Text);
-      val = jsonstring;
-      //file.close();
-      //qWarning() << val;
-      QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
-      QJsonObject sett2 = d.object();
-      QJsonValue value = sett2.value(QString("last"));
-      //qWarning() << value;
 
-      qreal valueR;
-      valueR = value.toString().toDouble();
-      if (firstValR==0.00){
-          firstValR=valueR;
-      };
-      qreal valueDelta;
-      valueDelta = (valueR-firstValR)/5;
-      if (valueDelta>0.7 || valueDelta<-0.7){
-          firstValR=valueR;
-          valueDelta=0;
-      };
-      valueDelta +=0.5;
-      qWarning() <<  valueR << "=" << value.toString();
+        QJsonDocument d = QJsonDocument::fromJson(val.toUtf8());
+        QJsonObject sett2 = d.object();
+        QJsonValue value = sett2.value(QString("last"));
+        //qWarning() << value;
 
-      this->removeFirstSample();
-      this->appendSample(valueDelta);
+        QJsonValue maxV = sett2.value(QString("high"));
+        QJsonValue minV = sett2.value(QString("low"));
+        maxR = maxV.toString().toDouble();
+        minR = minV.toString().toDouble();
+        rangeR = maxR-minR;
 
-      return value.toString();
+        qreal valueR;
+        valueR = value.toString().toDouble();
 
-      //QJsonObject item = value.toObject();
-      //qWarning() << tr("QJsonObject of description: ") << item;
+        qreal valueDelta;
+        valueDelta = 1-(valueR-minR)/rangeR;
+        qWarning() <<  valueR << ". delta=" << valueDelta;
 
-      /* in case of string value get value and convert into string*/
-      //qWarning() << tr("QJsonObject[appName] of description: ") << item["description"];
-      //QJsonValue subobj = item["description"];
-      //qWarning() << subobj.toString();
+        this->removeFirstSample();
+        this->appendSample(valueDelta);
 
-      /* in case of array get array and convert into string*/
-      //qWarning() << tr("QJsonObject[appName] of value: ") << item["imp"];
-      //QJsonArray test = item["imp"].toArray();
-      //qWarning() << test[1].toString();
+        return value.toString();
    }
 
 

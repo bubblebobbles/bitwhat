@@ -62,8 +62,10 @@ class NoisyShader : public QSGSimpleMaterialShader<NoisyMaterial>
 
 public:
     NoisyShader() : id_color(-1), id_texture(-1), id_textureSize(-1) {
-        setShaderSourceFile(QOpenGLShader::Vertex, ":/scenegraph/graph/shaders/noisy.vsh");
-        setShaderSourceFile(QOpenGLShader::Fragment, ":/scenegraph/graph/shaders/noisy.fsh");
+     //   setShaderSourceFile(QOpenGLShader::Vertex, ":/scenegraph/graph/shaders/noisy.vsh");
+     //   setShaderSourceFile(QOpenGLShader::Fragment, ":/scenegraph/graph/shaders/noisy.fsh");
+        setShaderSourceFile(QOpenGLShader::Vertex, ":/shaders/noisy.vsh");//mycode
+        setShaderSourceFile(QOpenGLShader::Fragment, ":/shaders/noisy.fsh");//mycode
     }
 
     QList<QByteArray> attributes() const {  return QList<QByteArray>() << "aVertex" << "aTexCoord"; }

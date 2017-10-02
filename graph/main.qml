@@ -43,27 +43,31 @@ import QtQuick 2.0
 import Graph 1.0
 
 Item {
+
+
     width: 800
     height: 400
 
-    //mycode
-    Text {
+    Text {//mycode
         id: bitCoinFlow
         text: qsTr("Bit Coin Flow")
     }
 
     Graph {
+
         id: graph
+
         anchors.fill: parent
         anchors.margins: 70
 
         function newSample(i) {
 
            //return (Math.sin(i / 100.0 * Math.PI * 2) + 1) * 0.4 + Math.random() * 0.05;
-            return ( 0.5 ); //(i % 100)/100 ) ;//mycode
+            return ( 1.1 ); //mycode
         }
 
         Component.onCompleted: {
+
             for (var i=0; i<100; ++i)
                 appendSample(newSample(i));
         }
@@ -79,8 +83,8 @@ Item {
         onTriggered: {
 
             bitCoinFlow.text = graph.getFromWeb("https://www.bitstamp.net/api/v2/ticker/btceur/");//mycode
+            bitCoinFlow.text=bitCoinFlow.text.trim() + "\n\n JSon field(last) value -> " + graph.readLast(bitCoinFlow.text);//mycode
 
-            bitCoinFlow.text=bitCoinFlow.text.trim()+ "\n\n JSon field(last) value -> " + graph.readLast(bitCoinFlow.text);
             //graph.removeFirstSample();
             //graph.appendSample(graph.newSample(++graph.offset));
         }
